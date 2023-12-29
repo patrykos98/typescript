@@ -1,8 +1,9 @@
-const input1 = document.querySelector('#input1');
-const input2 = document.querySelector('#input2');
 const btn = document.querySelector('button');
-const add = (v1, v2) => v1 + v2;
+const calculatePrice = (originalPrice, hasDiscount) => {
+    return hasDiscount ? originalPrice * 0.8 : originalPrice;
+};
 btn.addEventListener("click", () => {
-    const sum = add(Number(input1.value), Number(input2.value));
-    console.log(sum);
+    const originalPrice = 50;
+    const hasDiscount = new URLSearchParams(window.location.search).get("discount") === 'true';
+    console.log(calculatePrice(originalPrice, hasDiscount));
 });
