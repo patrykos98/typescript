@@ -5,21 +5,24 @@
 const taskNameInputElement: HTMLInputElement=document.querySelector("#name");
 const addButtonElement: HTMLButtonElement=document.querySelector("button");
 const tasksContainerElement: HTMLElement=document.querySelector(".tasks");
+const categoriesContainerElement:HTMLElement=document.querySelector(".categories");
+
+type Category="general" | "work" | "gym" | "hobby";
 
 interface Task{
     title: string;
     done: boolean;
-    category?: "general" | "gym" | "work" | "hobby";
+    category?: Category;
 }
 
-const categories: string[] = ["general","work", "gym", "hobby"];
+const categories: Category[] = ["general","work", "gym", "hobby"];
 
 const tasks: Task[]=[{
     title:"Wyrzucić śmieci",
     done:false
 },
 {
-    title:"Pojść na siłke",
+    title:"Pojść na siłke!",
     done:true,
     category: "gym"
 },
@@ -54,15 +57,39 @@ const render=()=>{
     })
 }
 
+const renderCategories= ()=>{
+    categories.forEach(category=>{
+        const categoryElement: HTMLElement=document.createElement("li");
+
+        const radioInputElement: HTMLInputElement=document.createElement("input");
+        radioInputElement.type="radio";
+        radioInputElement.name="category";
+        radioInputElement.value= category;
+        radioInputElement.id=`category-${category}`;
+
+        const labelElement: HTMLLabelElement=document.createElement("label");
+        labelElement.setAttribute("for",`category-${category}`);
+        labelElement.innerText=category;
+
+        categoryElement.appendChild(radioInputElement);
+        categoryElement.appendChild(labelElement);
+
+        categoriesContainerElement.appendChild(categoryElement);
+    })
+}
+
 const addTask= (task: Task)=>{
     tasks.push(task);
 }
 
 addButtonElement.addEventListener("click",(event: Event)=>{
+    const selectedRadioElement: HTMLInputElement = document.querySelector("input[type='radio']:checked");
+    const selectedCategory: Category = selectedRadioElement.value as Category;
     event.preventDefault();
-    addTask({title: taskNameInputElement.value, done: false});
+    addTask({title: taskNameInputElement.value, done: false, category: selectedCategory});
     render();
 })
 
 addTask({title: "klata", category:"gym", done:true});
+renderCategories();
 render();
