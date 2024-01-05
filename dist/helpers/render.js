@@ -7,11 +7,11 @@ const render = (tasks, tasksContainerElement) => {
         }
         const id = `task-${index}`;
         const labelElement = document.createElement("label");
-        labelElement.innerText = task.title;
+        labelElement.innerText = task.name;
         labelElement.setAttribute("for", id);
         const checkBoxElement = document.createElement("input");
         checkBoxElement.type = "checkbox";
-        checkBoxElement.name = task.title;
+        checkBoxElement.name = task.name;
         checkBoxElement.id = id;
         checkBoxElement.checked = task.done;
         checkBoxElement.addEventListener("change", () => task.done = !task.done);

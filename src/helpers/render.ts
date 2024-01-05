@@ -10,12 +10,12 @@ const render=(tasks: Task[],tasksContainerElement:HTMLElement)=>{
         }
         const id: string=`task-${index}`;
         const labelElement: HTMLLabelElement=document.createElement("label");
-        labelElement.innerText = task.title;
+        labelElement.innerText = task.name;
         labelElement.setAttribute("for",id);
 
         const checkBoxElement: HTMLInputElement = document.createElement("input");
         checkBoxElement.type="checkbox";
-        checkBoxElement.name=task.title;
+        checkBoxElement.name=task.name;
         checkBoxElement.id=id;
         checkBoxElement.checked=task.done;
         checkBoxElement.addEventListener("change",()=>task.done=!task.done);
